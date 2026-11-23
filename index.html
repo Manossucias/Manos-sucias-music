@@ -693,6 +693,39 @@
       color: var(--cream);
     }
 
+    .tracklist-groups {
+      display: grid;
+      gap: 0.95rem;
+    }
+
+    .tracklist-disc-title {
+      margin: 0 0 0.45rem;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .tracklist-side-title {
+      margin: 0.35rem 0 0.25rem;
+      font-family: var(--font-mono);
+      font-size: 0.73rem;
+      font-weight: 700;
+      color: var(--cream-muted);
+    }
+
+    .tracklist-side-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 0.24rem;
+      font-size: 0.86rem;
+      color: var(--cream);
+    }
+
     /* Administración */
     .admin-top {
       padding: 1.25rem 1.5rem;
@@ -1358,21 +1391,13 @@
           featured: false,
           cover: PROVIDED_COVERS.liveAtTheCheetah,
           description: 'Grabación en vivo en The Cheetah en formato de vinilo.',
-          tracklist: ['Live at the Cheetah Pt. 1', 'Live at the Cheetah Pt. 2', 'Quítate Tú']
-        },
-        {
-          id: 'ms-14',
-          artist: 'Title Fight',
-          album: 'Floral Green',
-          genre: 'Rock · Música Alternativa',
-          year: 2012,
-          price: 850.0,
-          status: 'Disponible',
-          condition: 'Nuevo',
-          featured: false,
-          cover: PROVIDED_COVERS.floralGreen,
-          description: 'Tercer álbum de estudio de Title Fight en vinilo.',
-          tracklist: ['Numb, But I Still Feel It', 'Leaf', 'Like a Ritual', 'Symmetry']
+          tracklist: [
+            'A1. Introduction Theme (5:04)',
+            'A2. Descarga Fania (9:09)',
+            'A3. Anacaona (7:29) [1]',
+            'Lado B [1]',
+            'B1. Quítate Tú (16:33)'
+          ]
         },
         {
           id: 'ms-15',
@@ -1386,7 +1411,31 @@
           featured: true,
           cover: PROVIDED_COVERS.debiTirarMasFotos,
           description: 'Edición en vinilo de DEBÍ TIRAR MÁS FOTOS.',
-          tracklist: ['NUEVAYoL', 'BAILE INoLVIDABLE', 'DTMF', 'LA MuDANZA']
+          tracklist: [
+            'Disco 1',
+            'Lado A',
+            'A1. Nuevayol (3:04)',
+            'A2. Voy A Llevarte Pa PR (2:36)',
+            'A3. Baile Inolvidable (6:08)',
+            'A4. Perfumito Nuevo (feat. RaiNao) (3:21)',
+            'Lado B',
+            'B1. Weltita (feat. Chuwi) (3:08)',
+            'B2. Veldá (feat. Omar Courtz & Dei V) (3:55)',
+            'B3. El Clúb (3:43)',
+            'B4. Ketu Tecré (4:11)',
+            'B5. Bokete (3:36)',
+            'Disco 2',
+            'Lado C',
+            'C1. Kloufrens (3:19)',
+            'C2. Turista (3:10)',
+            'C3. Café Con Ron (feat. Los Pleneros De La Cresta) (3:49)',
+            'C4. Pitorro De Coco (3:27) [1, 2]',
+            'Lado D',
+            'D1. Lo Que Le Pasó A Hawaii (3:49)',
+            'D2. EOO (3:24)',
+            'D3. DTMF (3:57)',
+            'D4. La Mudanza (3:33) [1, 2]'
+          ]
         },
         {
           id: 'ms-16',
@@ -1768,11 +1817,68 @@
         const priceInfo = formatPriceDisplay(rec.price);
         const isFav = state.favorites.includes(rec.id);
         const tracks = Array.isArray(rec.tracklist) ? rec.tracklist.filter(Boolean) : [];
+        const songTracks = tracks.filter((line) => !/^disco\s+\d+$/i.test(line.trim()) && !/^lado\s+[a-z]$/i.test(line.trim()));
+        const trackCounterText = songTracks.length > 0 ? `${songTracks.length} ${songTracks.length === 1 ? 'canción' : 'canciones'}` : '0 canciones';
         const isSoldOut = rec.status === 'Agotado';
 
-        const tracksMarkup = tracks.length > 0
-          ? `<div class="tracklist-card"><ol>${tracks.map((t) => `<li>${escapeXml(t)}</li>`).join('')}</ol></div>`
-          : `<div class="tracklist-card"><span class="font-mono" style="font-size:0.78rem; color:var(--cream-muted);">Sin canciones registradas.</span></div>`;
+        function buildTracksMarkup(items) {
+          if (items.length === 0) {
+            return `<div class="tracklist-card"><span class="font-mono" style="font-size:0.78rem; color:var(--cream-muted);">Sin canciones registradas.</span></div>`;
+          }
+
+          const hasStructuredSections = items.some((line) => /^disco\s+\d+$/i.test(line.trim()) || /^lado\s+[a-z]$/i.test(line.trim()));
+          if (!hasStructuredSections) {
+            return `<div class="tracklist-card"><ol>${items.map((t) => `<li>${escapeXml(t)}</li>`).join('')}</ol></div>`;
+          }
+
+          let html = `<div class="tracklist-card"><div class="tracklist-groups">`;
+          let currentDiscOpen = false;
+          let currentSideOpen = false;
+
+          items.forEach((rawLine) => {
+            const line = String(rawLine || '').trim();
+            if (!line) return;
+
+            if (/^disco\s+\d+$/i.test(line)) {
+              if (currentSideOpen) {
+                html += `</ul>`;
+                currentSideOpen = false;
+              }
+              if (currentDiscOpen) {
+                html += `</div>`;
+              }
+              html += `<div><div class="tracklist-disc-title">${escapeXml(line)}</div>`;
+              currentDiscOpen = true;
+            } else if (/^lado\s+[a-z]$/i.test(line)) {
+              if (currentSideOpen) {
+                html += `</ul>`;
+              }
+              if (!currentDiscOpen) {
+                html += `<div>`;
+                currentDiscOpen = true;
+              }
+              html += `<div class="tracklist-side-title">${escapeXml(line)}</div><ul class="tracklist-side-list">`;
+              currentSideOpen = true;
+            } else {
+              if (!currentDiscOpen) {
+                html += `<div>`;
+                currentDiscOpen = true;
+              }
+              if (!currentSideOpen) {
+                html += `<ul class="tracklist-side-list">`;
+                currentSideOpen = true;
+              }
+              html += `<li>${escapeXml(line)}</li>`;
+            }
+          });
+
+          if (currentSideOpen) html += `</ul>`;
+          if (currentDiscOpen) html += `</div>`;
+          html += `</div></div>`;
+          return html;
+        }
+
+        const tracksMarkup = buildTracksMarkup(tracks);
 
         const container = document.getElementById('detailModalContent');
         if (container) {
@@ -1811,7 +1917,7 @@
                 </div>
 
                 <div>
-                  <span class="field-label">Lista de canciones (${tracks.length} ${tracks.length === 1 ? 'canción' : 'canciones'})</span>
+                  <span class="field-label">Lista de canciones (${trackCounterText})</span>
                   ${tracksMarkup}
                 </div>
 

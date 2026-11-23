@@ -1,0 +1,2120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MANOS SUCIAS — Escuchar es oficio</title>
+  <link
+    id="faviconLink"
+    rel="icon"
+    type="image/svg+xml"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 1000'%3E%3Crect width='1000' height='1000' fill='%2323150C'/%3E%3Ctext x='500' y='455' text-anchor='middle' fill='%23EFE4BE' font-family='Georgia, serif' font-weight='800' font-size='215'%3EMANOS%3C/text%3E%3Ctext x='500' y='725' text-anchor='middle' fill='%23EFE4BE' font-family='Georgia, serif' font-weight='800' font-size='215'%3ESUCIAS%3C/text%3E%3C/svg%3E"
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Syne:wght@700;800&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    /* =========================================================================
+       PALETA MANOS SUCIAS: CAFÉ OSCURO, CREMA CÁLIDO Y NARANJA RETRO
+       ========================================================================= */
+    :root {
+      --bg-base: #23150C;
+      --bg-deep: #160D07;
+      --surface-1: #311E12;
+      --surface-2: #3D2617;
+      --cream: #EFE4BE;
+      --cream-muted: #D8C99B;
+      --accent: #E06D2B;
+      --accent-hover: #EB7B3A;
+      --border-subtle: rgba(239, 228, 190, 0.2);
+      --border-strong: rgba(239, 228, 190, 0.48);
+      --font-logo: 'Fredoka', 'Syne', Georgia, serif;
+      --font-display: 'Syne', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'Space Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-lg: 22px;
+      --shadow-card: 0 14px 30px rgba(10, 5, 2, 0.52);
+      --shadow-hover: 0 22px 40px rgba(10, 5, 2, 0.76);
+      --shadow-btn: 3px 3px 0px #EFE4BE;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background-color: var(--bg-base);
+      background-image:
+        radial-gradient(rgba(239, 228, 190, 0.045) 1px, transparent 0),
+        radial-gradient(circle at 88% 8%, rgba(224, 109, 43, 0.14), transparent 36%),
+        linear-gradient(180deg, rgba(22, 13, 7, 0.85) 0%, rgba(35, 21, 12, 0.98) 380px);
+      background-size: 24px 24px, 100% 100%, 100% 100%;
+      color: var(--cream);
+      font-family: var(--font-sans);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4, .font-display {
+      font-family: var(--font-display);
+      letter-spacing: -0.015em;
+    }
+
+    .font-logo {
+      font-family: var(--font-logo);
+    }
+
+    .font-mono {
+      font-family: var(--font-mono);
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    @media (min-width: 640px) {
+      .container {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+    }
+
+    /* =========================================================================
+       ENCABEZADO Y NAVEGACIÓN
+       ========================================================================= */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: rgba(22, 13, 7, 0.93);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .header-inner {
+      min-height: 78px;
+      padding: 0.7rem 0;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.85rem;
+    }
+
+    .brand-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: transparent;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      color: var(--cream);
+      text-align: left;
+    }
+
+    .brand-text-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .brand-name {
+      font-family: var(--font-logo);
+      font-weight: 700;
+      font-size: clamp(1.2rem, 2.4vw, 1.55rem);
+      line-height: 1.05;
+      color: var(--cream);
+      letter-spacing: 0.02em;
+    }
+
+    .brand-slogan {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      color: var(--cream-muted);
+      margin-top: 0.12rem;
+    }
+
+    .nav-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      padding: 0.56rem 0.92rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-strong);
+      background: var(--surface-1);
+      color: var(--cream);
+      font-family: var(--font-sans);
+      font-size: 0.84rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: var(--shadow-btn);
+      transition: transform 0.14s ease, background-color 0.16s ease, box-shadow 0.14s ease, border-color 0.16s ease;
+    }
+
+    .btn:hover {
+      background: var(--surface-2);
+      transform: translate(-1px, -1px);
+    }
+
+    .btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0px var(--cream);
+    }
+
+    .btn-accent {
+      background: var(--accent);
+      color: var(--bg-deep);
+      border-color: var(--accent);
+      font-weight: 700;
+      box-shadow: 3px 3px 0px var(--cream);
+    }
+
+    .btn-accent:hover {
+      background: var(--accent-hover);
+      border-color: var(--accent-hover);
+      color: var(--bg-deep);
+    }
+
+    .btn-active {
+      background: var(--cream);
+      color: var(--bg-base);
+      border-color: var(--cream);
+      font-weight: 700;
+    }
+
+    .btn-active:hover {
+      background: #E5D7AA;
+      color: var(--bg-base);
+    }
+
+    .badge-count {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.12rem 0.5rem;
+      border-radius: 999px;
+      background: var(--bg-deep);
+      color: var(--cream);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .btn-active .badge-count {
+      background: var(--bg-base);
+      color: var(--cream);
+    }
+
+    /* =========================================================================
+       CATÁLOGO PRINCIPAL
+       ========================================================================= */
+    .main-wrap {
+      flex: 1;
+      padding: 2rem 0 3.5rem;
+    }
+
+    .catalog-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.35rem;
+    }
+
+    .kicker {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      font-weight: 700;
+      display: block;
+    }
+
+    .catalog-title {
+      margin: 0.25rem 0 0;
+      font-size: clamp(1.9rem, 4vw, 2.55rem);
+      font-weight: 800;
+      color: var(--cream);
+    }
+
+    .catalog-stats {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .controls-box {
+      background: var(--surface-1);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 1.15rem;
+      box-shadow: var(--shadow-card);
+      margin-bottom: 1.85rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    @media (min-width: 768px) {
+      .controls-box {
+        grid-template-columns: 1.6fr 1fr auto;
+        align-items: end;
+        padding: 1.3rem;
+      }
+    }
+
+    .field-label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--cream-muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .input-box,
+    .select-box,
+    .textarea-box {
+      width: 100%;
+      padding: 0.62rem 0.82rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-deep);
+      color: var(--cream);
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.16s ease;
+    }
+
+    .input-box:focus,
+    .select-box:focus,
+    .textarea-box:focus {
+      border-color: var(--accent);
+    }
+
+    .input-box::placeholder,
+    .textarea-box::placeholder {
+      color: rgba(216, 201, 155, 0.48);
+    }
+
+    /* =========================================================================
+       GRID Y TARJETAS DE DISCOS
+       ========================================================================= */
+    .records-grid {
+      display: grid;
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+      gap: 1.45rem;
+    }
+
+    @media (min-width: 580px) {
+      .records-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 920px) {
+      .records-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 1200px) {
+      .records-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+
+    .record-card {
+      background: var(--surface-1);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      transition: transform 0.24s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.24s ease, border-color 0.24s ease;
+    }
+
+    .record-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--accent);
+    }
+
+    .cover-wrap {
+      position: relative;
+      aspect-ratio: 1 / 1;
+      width: 100%;
+      background: var(--bg-deep);
+      border-bottom: 1px solid var(--border-subtle);
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .cover-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.36s ease;
+    }
+
+    .record-card:hover .cover-wrap img {
+      transform: scale(1.035);
+    }
+
+    .featured-chip {
+      position: absolute;
+      top: 0.7rem;
+      left: 0.7rem;
+      z-index: 3;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 0.22rem 0.58rem;
+      border-radius: 999px;
+      background: var(--accent);
+      color: var(--bg-deep);
+      border: 1px solid var(--bg-deep);
+    }
+
+    .fav-icon-btn {
+      position: absolute;
+      top: 0.7rem;
+      right: 0.7rem;
+      z-index: 3;
+      width: 38px;
+      height: 38px;
+      border-radius: 999px;
+      border: 1px solid var(--border-strong);
+      background: rgba(22, 13, 7, 0.88);
+      color: var(--cream);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+    }
+
+    .fav-icon-btn:hover {
+      transform: scale(1.07);
+      background: var(--surface-2);
+    }
+
+    .fav-icon-btn.is-fav {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .card-content {
+      padding: 1rem 1.05rem 1.1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex: 1;
+      gap: 0.85rem;
+    }
+
+    .card-badges {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.4rem;
+      margin-bottom: 0.45rem;
+      flex-wrap: wrap;
+    }
+
+    .status-pill {
+      font-family: var(--font-mono);
+      font-size: 0.69rem;
+      font-weight: 700;
+      padding: 0.18rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .status-Disponible {
+      background: var(--cream);
+      color: var(--bg-base);
+      border-color: var(--cream);
+    }
+
+    .status-Preventa {
+      background: var(--accent);
+      color: var(--bg-deep);
+      border-color: var(--accent);
+    }
+
+    .status-Agotado {
+      background: var(--bg-deep);
+      color: var(--cream-muted);
+      border-color: rgba(239, 228, 190, 0.22);
+    }
+
+    .card-year {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--cream-muted);
+    }
+
+    .card-title {
+      margin: 0;
+      font-size: 1.06rem;
+      font-weight: 800;
+      color: var(--cream);
+      line-height: 1.25;
+      cursor: pointer;
+    }
+
+    .card-title:hover {
+      color: var(--accent);
+    }
+
+    .card-artist {
+      margin: 0.22rem 0 0;
+      font-size: 0.88rem;
+      color: var(--cream-muted);
+      font-weight: 500;
+    }
+
+    .card-genre {
+      margin: 0.32rem 0 0;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--accent);
+    }
+
+    .card-bottom {
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .price-label {
+      font-family: var(--font-mono);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--cream);
+    }
+
+    .price-consult {
+      color: var(--cream-muted);
+      font-size: 0.82rem;
+      font-style: italic;
+    }
+
+    .empty-box {
+      text-align: center;
+      padding: 3.5rem 1.5rem;
+      border-radius: var(--radius-lg);
+      background: var(--surface-1);
+      border: 1px dashed var(--border-strong);
+      margin-top: 1rem;
+    }
+
+    /* =========================================================================
+       MODALES (FICHA DE DISCO Y ADMINISTRACIÓN)
+       ========================================================================= */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      display: none;
+      align-items: flex-start;
+      justify-content: center;
+      background: rgba(12, 7, 3, 0.85);
+      backdrop-filter: blur(5px);
+      padding: 1.25rem 0.75rem;
+      overflow-y: auto;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal-panel {
+      position: relative;
+      width: 100%;
+      background: var(--bg-base);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-hover);
+      margin: auto;
+      overflow: hidden;
+    }
+
+    .modal-detail-panel {
+      max-width: 940px;
+    }
+
+    .modal-admin-panel {
+      max-width: 1200px;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 0.9rem;
+      right: 0.9rem;
+      z-index: 10;
+      width: 38px;
+      height: 38px;
+      border-radius: 999px;
+      border: 1px solid var(--border-strong);
+      background: var(--surface-1);
+      color: var(--cream);
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .close-btn:hover {
+      background: var(--accent);
+      color: var(--bg-deep);
+      border-color: var(--accent);
+    }
+
+    .detail-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      padding: 1.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .detail-layout {
+        grid-template-columns: 5fr 7fr;
+        padding: 2rem;
+        gap: 2rem;
+      }
+    }
+
+    .detail-cover {
+      aspect-ratio: 1 / 1;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-deep);
+    }
+
+    .detail-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .meta-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      align-items: center;
+    }
+
+    .info-chip {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      padding: 0.22rem 0.6rem;
+      border-radius: 999px;
+      background: var(--surface-1);
+      color: var(--cream);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .price-strip {
+      background: var(--surface-1);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 0.8rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .soldout-alert {
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius-sm);
+      background: var(--surface-2);
+      border: 1px solid var(--accent);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--cream);
+    }
+
+    .tracklist-card {
+      background: var(--surface-1);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 0.85rem 1rem;
+    }
+
+    .tracklist-card ol {
+      margin: 0;
+      padding-left: 1.25rem;
+      display: grid;
+      gap: 0.32rem;
+      font-size: 0.88rem;
+      color: var(--cream);
+    }
+
+    /* Administración */
+    .admin-top {
+      padding: 1.25rem 1.5rem;
+      background: var(--bg-deep);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.85rem;
+      padding-right: 3.6rem;
+    }
+
+    .admin-grid {
+      padding: 1.35rem 1.5rem 1.75rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    @media (min-width: 960px) {
+      .admin-grid {
+        grid-template-columns: 5fr 7fr;
+      }
+    }
+
+    .admin-form-box {
+      background: var(--surface-1);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.2rem;
+      height: fit-content;
+    }
+
+    .form-field {
+      margin-bottom: 0.85rem;
+    }
+
+    .form-two {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    .check-inline {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.82rem;
+      color: var(--cream);
+      cursor: pointer;
+    }
+
+    .check-inline input[type="checkbox"] {
+      accent-color: var(--accent);
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+    }
+
+    .admin-items {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      max-height: 700px;
+      overflow-y: auto;
+      padding-right: 0.25rem;
+    }
+
+    .admin-row {
+      background: var(--surface-1);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 0.75rem 0.9rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .admin-row-info {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      min-width: 0;
+      flex: 1 1 240px;
+    }
+
+    .admin-mini-cover {
+      width: 54px;
+      height: 54px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border-subtle);
+      flex-shrink: 0;
+      background: var(--bg-deep);
+    }
+
+    .admin-mini-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .admin-row-btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .btn-xs {
+      padding: 0.36rem 0.62rem;
+      font-size: 0.75rem;
+      box-shadow: 2px 2px 0px var(--cream);
+    }
+
+    /* =========================================================================
+       PIE DE PÁGINA Y NOTIFICACIONES
+       ========================================================================= */
+    .site-footer {
+      background: var(--bg-deep);
+      border-top: 1px solid var(--border-subtle);
+      padding: 1.3rem 0;
+      margin-top: auto;
+      font-size: 0.83rem;
+      color: var(--cream-muted);
+    }
+
+    .footer-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .toast-stack {
+      position: fixed;
+      bottom: 1.1rem;
+      right: 1.1rem;
+      z-index: 70;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      max-width: 340px;
+      width: calc(100% - 2.2rem);
+      pointer-events: none;
+    }
+
+    .toast-card {
+      background: var(--bg-deep);
+      color: var(--cream);
+      border: 1px solid var(--accent);
+      border-radius: var(--radius-sm);
+      padding: 0.7rem 0.9rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      box-shadow: var(--shadow-hover);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+  <!-- =======================================================================
+       ENCABEZADO
+       ======================================================================= -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <button type="button" class="brand-btn" onclick="resetToAllCatalog()">
+        <div class="brand-text-group">
+          <span class="brand-name">MANOS SUCIAS</span>
+          <span class="brand-slogan">Escuchar es oficio</span>
+        </div>
+      </button>
+
+      <nav class="nav-group" aria-label="Navegación">
+      <nav class="nav-group" aria-label="Navegación principal">
+        <button type="button" id="navCatalogBtn" class="btn btn-active" onclick="resetToAllCatalog()">
+          <span>Catálogo</span>
+        </button>
+
+        <button type="button" id="navFavBtn" class="btn" onclick="toggleFavoritesOnly()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+          </svg>
+          <span>Favoritos</span>
+          <span id="headerFavBadge" class="badge-count">0</span>
+        </button>
+
+        <a
+          href="https://www.instagram.com/manossuciasmusic/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn"
+          aria-label="Instagram de Manos Sucias"
+          title="Instagram @manossuciasmusic"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <rect x="2.5" y="2.5" width="19" height="19" rx="5" ry="5" />
+            <circle cx="12" cy="12" r="4" />
+            <circle cx="17.5" cy="6.5" r="1.15" fill="currentColor" stroke="none" />
+          </svg>
+          <span>Instagram</span>
+        </a>
+
+        <button type="button" id="adminNavBtn" class="btn btn-accent hidden" onclick="openAdminPanel()">
+          <span>Administración</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- =======================================================================
+       CATÁLOGO PRINCIPAL
+       ======================================================================= -->
+  <main id="catalogMain" class="main-wrap">
+    <div class="container">
+      <div class="catalog-top">
+        <div>
+          <span class="kicker">MANOS SUCIAS · Escuchar es oficio</span>
+          <h1 class="catalog-title">Catálogo</h1>
+        </div>
+        <div class="catalog-stats">
+          <span id="availableCountBadge" class="badge-count">0 disponibles</span>
+          <button type="button" class="btn btn-xs" onclick="clearAllFilters()">Limpiar filtros</button>
+        </div>
+      </div>
+
+      <!-- Búsqueda, ordenamiento y favoritos -->
+      <section class="controls-box" aria-label="Búsqueda y ordenamiento">
+        <div>
+          <label for="searchBox" class="field-label">Buscar por nombre, artista o canción</label>
+          <input
+            id="searchBox"
+            type="text"
+            class="input-box"
+            placeholder="Ej. ABBA, Bad Bunny, Héctor Lavoe, Currents..."
+            oninput="handleSearchInput(this.value)"
+          />
+        </div>
+
+        <div>
+          <label for="sortSelect" class="field-label">Ordenar por</label>
+          <select id="sortSelect" class="select-box" onchange="handleSortChange(this.value)">
+            <option value="default">Por defecto</option>
+            <option value="popularity">Popularidad</option>
+            <option value="newest">Novedades</option>
+            <option value="price-asc">Precio: menor a mayor</option>
+            <option value="price-desc">Precio: mayor a menor</option>
+          </select>
+        </div>
+
+        <div>
+          <button type="button" id="quickFavBtn" class="btn" style="width:100%;" onclick="toggleFavoritesOnly()">
+            <span>Solo favoritos</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Grid de discos -->
+      <section id="recordsGrid" class="records-grid" aria-label="Listado de discos"></section>
+
+      <!-- Estado vacío -->
+      <div id="emptyStateBox" class="empty-box hidden">
+        <h2 style="margin:0 0 0.4rem; font-size:1.45rem;">Sin coincidencias</h2>
+        <p style="margin:0 0 1.1rem; color:var(--cream-muted); font-size:0.9rem;">
+          No se encontraron discos con el criterio seleccionado.
+        </p>
+        <button type="button" class="btn btn-accent" onclick="clearAllFilters()">Restablecer catálogo</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- =======================================================================
+       PIE DE PÁGINA
+       ======================================================================= -->
+  <footer class="site-footer">
+    <div class="container footer-row">
+      <div>
+        <span class="font-logo" style="color:var(--cream); font-size:1rem;">MANOS SUCIAS</span>
+        <span style="margin:0 0.4rem;">·</span>
+        <span class="font-mono">Escuchar es oficio</span>
+      </div>
+      <div>
+        <a
+          href="https://www.instagram.com/manossuciasmusic/"
+          target="_blank"
+          rel="noopener noreferrer"
+          style="color:var(--cream); text-decoration:none; display:inline-flex; align-items:center; gap:0.4rem; font-family:var(--font-mono); font-size:0.78rem;"
+        >
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <rect x="2.5" y="2.5" width="19" height="19" rx="5" ry="5" />
+            <circle cx="12" cy="12" r="4" />
+            <circle cx="17.5" cy="6.5" r="1.15" fill="currentColor" stroke="none" />
+          </svg>
+          <span>@manossuciasmusic</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =======================================================================
+       MODAL: FICHA INDIVIDUAL DEL DISCO
+       ======================================================================= -->
+  <div id="detailModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="detailTitleHeading" onclick="closeOnBackdrop(event, 'detailModal')">
+    <div class="modal-panel modal-detail-panel">
+      <button type="button" class="close-btn" aria-label="Cerrar ficha" onclick="closeDetailModal()">✕</button>
+      <div id="detailModalContent"></div>
+    </div>
+  </div>
+
+  <!-- =======================================================================
+       MODAL: ADMINISTRACIÓN PRIVADA DEL CATÁLOGO
+       ======================================================================= -->
+  <div id="adminModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="adminTitleHeading" onclick="closeOnBackdrop(event, 'adminModal')">
+    <div class="modal-panel modal-admin-panel">
+      <div class="admin-top">
+        <div>
+          <span class="kicker">Sección privada</span>
+          <h2 id="adminTitleHeading" style="margin:0.15rem 0 0; font-size:1.5rem;">Administración del catálogo</h2>
+        </div>
+        <div style="display:flex; flex-wrap:wrap; gap:0.5rem;">
+          <button type="button" class="btn btn-xs" onclick="resetCatalogToBase()">Restablecer catálogo base</button>
+          <button type="button" class="btn btn-accent btn-xs" onclick="closeAdminPanel()">Cerrar ✕</button>
+        </div>
+      </div>
+
+      <div class="admin-grid">
+        <!-- Formulario Crear / Editar -->
+        <div class="admin-form-box">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.85rem;">
+            <h3 id="formHeading" style="margin:0; font-size:1.15rem;">Agregar nuevo disco</h3>
+            <button type="button" class="btn btn-xs" onclick="resetFormFields()">Nuevo</button>
+          </div>
+
+          <form id="catalogForm" onsubmit="saveRecordFromForm(event)">
+            <input type="hidden" id="editRecordId" />
+
+            <div class="form-field">
+              <label for="albumField" class="field-label">Nombre del álbum *</label>
+              <input id="albumField" type="text" class="input-box" required placeholder="Ej. Gold - Greatest Hits [2 LP]" oninput="window.refreshFormPreview()" />
+            </div>
+
+            <div class="form-field">
+              <label for="artistField" class="field-label">Artista o banda *</label>
+              <input id="artistField" type="text" class="input-box" required placeholder="Ej. ABBA" oninput="window.refreshFormPreview()" />
+            </div>
+
+            <div class="form-two form-field">
+              <div>
+                <label for="genreField" class="field-label">Género musical</label>
+                <input id="genreField" type="text" class="input-box" placeholder="Ej. Pop · Disco" />
+              </div>
+              <div>
+                <label for="yearField" class="field-label">Año</label>
+                <input id="yearField" type="number" min="1940" max="2030" class="input-box" placeholder="Ej. 1992" oninput="window.refreshFormPreview()" />
+              </div>
+            </div>
+
+            <div class="form-two form-field">
+              <div>
+                <label for="priceField" class="field-label">Precio (MXN)</label>
+                <input id="priceField" type="number" min="0" step="0.01" class="input-box" placeholder="Vacío = Precio por confirmar" />
+              </div>
+              <div>
+                <label for="statusField" class="field-label">Disponibilidad</label>
+                <select id="statusField" class="select-box">
+                  <option value="Disponible">Disponible</option>
+                  <option value="Preventa">Preventa</option>
+                  <option value="Agotado">Agotado</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-two form-field">
+              <div>
+                <label for="conditionField" class="field-label">Estado del vinilo</label>
+                <select id="conditionField" class="select-box" onchange="window.refreshFormPreview()">
+                  <option value="Nuevo">Nuevo</option>
+                  <option value="Usado">Usado</option>
+                </select>
+              </div>
+              <div style="display:flex; align-items:flex-end; padding-bottom:0.35rem;">
+                <label class="check-inline">
+                  <input id="featuredField" type="checkbox" />
+                  <span>Marcar como destacado</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-field">
+              <label for="coverUploadField" class="field-label">Subir o reemplazar fotografía de portada</label>
+              <input id="coverUploadField" type="file" accept="image/*" class="input-box" onchange="window.onCoverFileSelected(event)" />
+              <label for="coverUrlField" class="field-label" style="margin-top:0.55rem;">O ingresar URL de imagen de portada</label>
+              <input id="coverUrlField" type="url" class="input-box" placeholder="https://..." oninput="window.onCoverUrlInput(this.value)" />
+              <div style="display:flex; align-items:center; justify-content:space-between; gap:0.65rem; margin-top:0.55rem;">
+                <img id="formCoverPreview" alt="Vista previa de portada" style="width:68px; height:68px; border-radius:10px; object-fit:cover; border:1px solid var(--border-strong);" />
+                <button type="button" class="btn btn-xs" onclick="window.clearCustomCover()">Restaurar portada</button>
+              </div>
+            </div>
+
+            <div class="form-field">
+              <label for="descriptionField" class="field-label">Descripción del álbum</label>
+              <textarea id="descriptionField" rows="2" class="textarea-box" placeholder="Notas del lanzamiento o estado del vinilo..."></textarea>
+            </div>
+
+            <div class="form-field">
+              <label for="tracklistField" class="field-label">Lista de canciones (una canción por línea)</label>
+              <textarea id="tracklistField" rows="4" class="textarea-box" placeholder="Pista 1&#10;Pista 2&#10;Pista 3"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-accent" style="width:100%;">Guardar disco</button>
+          </form>
+        </div>
+
+        <!-- Lista de discos en Administración -->
+        <div>
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.75rem;">
+            <h3 style="margin:0; font-size:1.15rem;">Inventario administrable</h3>
+          </div>
+          <div id="adminItemsList" class="admin-items"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contenedor de notificaciones -->
+  <div id="toastStack" class="toast-stack" aria-live="polite"></div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      const STORAGE_KEY = 'manos_sucias_v8_2026';
+
+      function escapeXml(str) {
+        return String(str || '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&apos;');
+      }
+
+      function svgDataUri(svgStr) {
+        return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgStr);
+      }
+
+      const OFFICIAL_LOGO_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="1000" height="1000"><rect width="1000" height="1000" fill="#23150C"/><rect x="38" y="38" width="924" height="924" rx="44" fill="none" stroke="#EFE4BE" stroke-opacity="0.25" stroke-width="8"/><text x="500" y="455" text-anchor="middle" fill="#EFE4BE" font-family="Georgia, 'Times New Roman', serif" font-weight="800" font-size="208" letter-spacing="6">MANOS</text><text x="500" y="725" text-anchor="middle" fill="#EFE4BE" font-family="Georgia, 'Times New Roman', serif" font-weight="800" font-size="208" letter-spacing="4">SUCIAS</text></svg>`;
+
+      function mountOfficialBrandAssets() {
+        const uri = svgDataUri(OFFICIAL_LOGO_SVG);
+        const favicon = document.getElementById('faviconLink');
+        if (favicon) favicon.href = uri;
+        ['headerLogoSlot', 'footerLogoSlot'].forEach((id) => {
+          const el = document.getElementById(id);
+          if (el) el.innerHTML = OFFICIAL_LOGO_SVG;
+        });
+      }
+
+      const PROVIDED_COVERS = {
+        lonerism: svgDataUri(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500"><defs><linearGradient id="sky1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4FA3D1"/><stop offset="68%" stop-color="#DCEAF2"/><stop offset="68%" stop-color="#DFC49B"/><stop offset="100%" stop-color="#C8A274"/></linearGradient></defs><rect width="500" height="500" fill="url(#sky1)"/><path d="M0 175 L500 175 L500 335 L0 335 Z" fill="#2B6A2E"/><rect x="145" y="195" width="210" height="68" fill="#EFE8D8"/><rect x="26" y="40" width="144" height="144" rx="72" fill="#E9C893"/><text x="98" y="106" text-anchor="middle" fill="#18120E" font-family="sans-serif" font-weight="800" font-size="16">TAME IMPALA</text><text x="98" y="128" text-anchor="middle" fill="#18120E" font-family="sans-serif" font-weight="700" font-size="14">LONERISM</text><rect x="195" y="295" width="130" height="54" rx="6" fill="#236E43" stroke="#EFE4BE" stroke-width="2"/><text x="260" y="320" text-anchor="middle" fill="#EFE4BE" font-family="monospace" font-weight="700" font-size="11">LONERISM</text><text x="260" y="336" text-anchor="middle" fill="#EFE4BE" font-family="monospace" font-size="9">TAME IMPALA</text><rect x="68" y="0" width="22" height="500" fill="#25282A" opacity="0.92"/><rect x="182" y="0" width="24" height="500" fill="#25282A" opacity="0.92"/><rect x="308" y="0" width="26" height="500" fill="#25282A" opacity="0.92"/><rect x="424" y="0" width="22" height="500" fill="#25282A" opacity="0.92"/></svg>`),
+        inRainbows: svgDataUri(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500"><defs><radialGradient id="glow2" cx="55%" cy="48%" r="55%"><stop offset="0%" stop-color="#F7C948"/><stop offset="38%" stop-color="#E85D2A"/><stop offset="72%" stop-color="#5B1B3D"/><stop offset="100%" stop-color="#0B0C10"/></radialGradient></defs><rect width="500" height="500" fill="url(#glow2)"/><text x="250" y="54" text-anchor="middle" fill="#F2E852" font-family="sans-serif" font-weight="800" font-size="38" letter-spacing="4">IN/ RAINBOWS</text><text x="250" y="114" text-anchor="middle" fill="#4FA4E8" font-family="sans-serif" font-weight="800" font-size="38" letter-spacing="4">IN RAIN/BOWS</text><text x="250" y="174" text-anchor="middle" fill="#E06D2B" font-family="sans-serif" font-weight="800" font-size="38" letter-spacing="4">IN RAINBOW/S</text><text x="250" y="234" text-anchor="middle" fill="#49B65A" font-family="sans-serif" font-weight="800" font-size="38" letter-spacing="4">IN RAINBOWS/</text><text x="250" y="294" text-anchor="middle" fill="#E8BE38" font-family="sans-serif" font-weight="800" font-size="38" letter-spacing="4">IN RAIN_BOWS</text><text x="250" y="354" text-anchor="middle" fill="#E23B38" font-family="sans-serif" font-weight="800" font-size="38" letter-spacing="6">RA D IOHEA _D</text><text x="250" y="416" text-anchor="middle" fill="#9AD4EC" font-family="sans-serif" font-weight="800" font-size="38" letter-spacing="6">RAD IO HEA D</text></svg>`),
+        kindOfBlue: svgDataUri(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500"><defs><radialGradient id="jazz3" cx="38%" cy="48%" r="58%"><stop offset="0%" stop-color="#3B5B78"/><stop offset="65%" stop-color="#141A21"/><stop offset="100%" stop-color="#090B0E"/></radialGradient></defs><rect width="500" height="500" fill="url(#jazz3)"/><line x1="0" y1="32" x2="500" y2="32" stroke="#DCE6EE" stroke-width="2"/><text x="155" y="24" text-anchor="middle" fill="#DCE6EE" font-family="sans-serif" font-size="12" letter-spacing="3">STEREO</text><polygon points="200,20 250,15 300,20 250,25" fill="#DCE6EE"/><text x="345" y="24" text-anchor="middle" fill="#DCE6EE" font-family="sans-serif" font-size="12" letter-spacing="3">FIDELITY</text><text x="16" y="96" fill="#F4F6F8" font-family="sans-serif" font-weight="800" font-size="52" letter-spacing="2">MILES DAVIS</text><rect x="336" y="54" width="144" height="36" rx="4" fill="#F4F6F8"/><text x="408" y="79" text-anchor="middle" fill="#0B0E12" font-family="sans-serif" font-weight="900" font-size="22">COLUMBIA</text><text x="408" y="114" text-anchor="middle" fill="#7FB5E6" font-family="Georgia, serif" font-style="italic" font-size="30">Kind of Blue</text><ellipse cx="185" cy="275" rx="92" ry="118" fill="#2A3C4C" opacity="0.65"/><rect x="220" y="252" width="165" height="16" rx="8" transform="rotate(-14 220 252)" fill="#D6DEE6"/></svg>`),
+        faniaLatinSound: svgDataUri(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500"><rect width="500" height="500" fill="#111111"/><text x="250" y="54" text-anchor="middle" fill="#B5B5B5" font-family="sans-serif" font-weight="800" font-size="24">Fania Records: The Latin Sound of New York</text><text x="405" y="84" text-anchor="middle" fill="#B5B5B5" font-family="sans-serif" font-weight="700" font-size="22">(1964-1978)</text><polygon points="95,136 168,136 136,396 52,396" fill="#EC268F"/><polygon points="176,136 232,136 254,396 184,396" fill="#1DA1F2"/><polygon points="240,136 296,136 336,396 266,396" fill="#EE2A24"/><polygon points="304,136 338,136 356,396 322,396" fill="#8E24AA"/><polygon points="346,136 418,136 454,396 372,396" fill="#EC268F"/><text x="250" y="452" text-anchor="middle" fill="#D8C99B" font-family="monospace" font-size="12">FANIA ALL STARS · SALSA · LP</text></svg>`),
+        melophobia: svgDataUri(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500"><rect width="500" height="500" fill="#F4EFE6"/><g fill="#161412"><rect x="18" y="0" width="14" height="500"/><rect x="54" y="0" width="14" height="500"/><rect x="90" y="0" width="14" height="500"/><rect x="126" y="0" width="14" height="500"/><rect x="162" y="0" width="14" height="500"/><rect x="198" y="0" width="14" height="500"/><rect x="234" y="0" width="14" height="500"/><rect x="270" y="0" width="14" height="500"/><rect x="306" y="0" width="14" height="500"/><rect x="342" y="0" width="14" height="500"/><rect x="378" y="0" width="14" height="500"/><rect x="414" y="0" width="14" height="500"/><rect x="450" y="0" width="14" height="500"/></g><text x="250" y="36" text-anchor="middle" fill="#161412" font-family="sans-serif" font-weight="800" font-size="22" letter-spacing="4">CAGE THE ELEPHANT</text><path d="M185 112 C245 92, 315 128, 310 198 C306 250, 325 288, 288 332 C252 372, 186 355, 174 302 C164 256, 172 162, 185 112 Z" fill="#F29B7E" stroke="#161412" stroke-width="5"/><circle cx="268" cy="184" r="22" fill="#F7C948" stroke="#161412" stroke-width="4"/><circle cx="268" cy="184" r="8" fill="#3B6EA5"/><circle cx="236" cy="228" r="26" fill="#F7C948" stroke="#161412" stroke-width="4"/><circle cx="236" cy="228" r="9" fill="#3B6EA5"/><path d="M235 286 Q268 274 294 288" fill="none" stroke="#B8292F" stroke-width="6" stroke-linecap="round"/><text x="250" y="474" text-anchor="middle" fill="#161412" font-family="sans-serif" font-weight="800" font-size="26" letter-spacing="8">MELOPHOBIA</text></svg>`),
+        sour: svgDataUri(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500"><rect width="500" height="500" fill="#8E82C9"/><ellipse cx="250" cy="255" rx="92" ry="135" fill="#E6C2A8"/><path d="M152 220 C145 110, 355 110, 348 245 C355 340, 375 410, 340 460 L155 460 C130 400, 145 310, 152 220 Z" fill="#231B18"/><ellipse cx="250" cy="245" rx="76" ry="116" fill="#E8C5AC"/><circle cx="222" cy="218" r="8" fill="#1B1412"/><circle cx="278" cy="218" r="8" fill="#1B1412"/><circle cx="204" cy="186" r="10" fill="#F25C8A"/><circle cx="236" cy="172" r="9" fill="#5BC0EB"/><circle cx="272" cy="176" r="10" fill="#FDE74C"/><circle cx="192" cy="236" r="11" fill="#FDE74C"/><circle cx="296" cy="232" r="10" fill="#E05A9F"/><path d="M234 276 Q250 292 266 276" fill="none" stroke="#C84B5A" stroke-width="5" stroke-linecap="round"/><rect x="380" y="454" width="106" height="32" fill="#111111"/><text x="433" y="475" text-anchor="middle" fill="#FFFFFF" font-family="sans-serif" font-weight="800" font-size="10">PARENTAL ADVISORY</text></svg>`),
+        americanFootball: svgDataUri(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500"><rect width="500" height="500" fill="#F7F6F2"/><rect x="0" y="365" width="500" height="135" fill="#D9B382"/><rect x="64" y="128" width="264" height="264" fill="#2D3A1E"/><polygon points="82,255 236,174 316,232 316,374 82,374" fill="#C9B458"/><polygon points="236,174 316,232 316,256 236,198" fill="#3B3524"/><rect x="236" y="268" width="24" height="44" fill="#F9C74F"/><text x="206" y="210" fill="#F7F6F2" font-family="sans-serif" font-size="38" letter-spacing="3">americ</text><text x="224" y="228" fill="#EFE4BE" font-family="sans-serif" font-size="14" letter-spacing="3">anfootball</text><circle cx="384" cy="260" r="112" fill="#DCE6EC" stroke="#9BB0BC" stroke-width="2"/><circle cx="384" cy="260" r="36" fill="#181818"/><circle cx="384" cy="260" r="10" fill="#DCE6EC"/></svg>`),
+        thisOldDog: svgDataUri(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500"><rect width="500" height="500" fill="#F7E57C"/><circle cx="250" cy="238" r="158" fill="none" stroke="#1E1B18" stroke-width="4" stroke-dasharray="14 8"/><circle cx="195" cy="185" r="24" fill="#F5C22B" stroke="#1E1B18" stroke-width="3"/><circle cx="305" cy="175" r="28" fill="#F5C22B" stroke="#1E1B18" stroke-width="3"/><circle cx="245" cy="292" r="30" fill="#F5C22B" stroke="#1E1B18" stroke-width="3"/><path d="M135 285 L185 265 L195 315 L140 325 Z" fill="#F5C22B" stroke="#1E1B18" stroke-width="3"/><text x="250" y="138" text-anchor="middle" fill="#1E1B18" font-family="monospace" font-weight="700" font-size="16">THIS OLD DOG</text><text x="250" y="468" text-anchor="middle" fill="#1E1B18" font-family="sans-serif" font-weight="800" font-size="22" letter-spacing="4">THIS OLD DOG</text></svg>`),
+        torches: svgDataUri(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500"><rect width="500" height="500" fill="#FCFBF7"/><text x="250" y="46" text-anchor="middle" fill="#181615" font-family="sans-serif" font-weight="800" font-size="28" letter-spacing="2">FOSTERTHEPEOPLE</text><text x="250" y="76" text-anchor="middle" fill="#D4A024" font-family="sans-serif" font-weight="700" font-size="20" letter-spacing="5">TORCHES</text><g stroke="#181615" stroke-width="2.5" fill="#FCFBF7"><circle cx="115" cy="235" r="36"/><circle cx="185" cy="220" r="34"/><circle cx="250" cy="205" r="36"/><circle cx="315" cy="222" r="34"/><circle cx="385" cy="242" r="36"/><rect x="80" y="260" width="340" height="210" rx="18"/></g><polygon points="250,235 234,285 266,285" fill="#E8A825" stroke="#181615" stroke-width="2.5"/><polygon points="105,135 92,175 118,175" fill="#E8A825" stroke="#181615" stroke-width="2"/><polygon points="395,155 382,195 408,195" fill="#E8A825" stroke="#181615" stroke-width="2"/></svg>`),
+        currents: svgDataUri(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500"><defs><linearGradient id="currBg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#281642"/><stop offset="55%" stop-color="#4A2574"/><stop offset="100%" stop-color="#140B24"/></linearGradient><radialGradient id="orbGrad" cx="35%" cy="32%" r="65%"><stop offset="0%" stop-color="#E6E8EE"/><stop offset="55%" stop-color="#7D828C"/><stop offset="100%" stop-color="#27292E"/></radialGradient></defs><rect width="500" height="500" fill="url(#currBg)"/><g stroke="#D8C8F0" stroke-width="1.6" fill="none" opacity="0.72"><path d="M0 40 Q 250 180 500 320"/><path d="M0 90 Q 240 225 500 370"/><path d="M0 140 Q 230 270 500 420"/><path d="M0 190 Q 220 315 500 470"/><path d="M0 240 Q 210 360 500 500"/></g><line x1="0" y1="0" x2="500" y2="500" stroke="#E63946" stroke-width="5"/><circle cx="265" cy="312" r="56" fill="url(#orbGrad)"/><text x="20" y="28" fill="#F2C94C" font-family="sans-serif" font-weight="800" font-size="16" letter-spacing="2">TAME IMPALA</text><text x="480" y="28" text-anchor="end" fill="#F2C94C" font-family="sans-serif" font-weight="800" font-size="16" letter-spacing="2">CURRENTS</text></svg>`),
+        deTiDepende: svgDataUri(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500"><defs><linearGradient id="lavoeBg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#C87D32"/><stop offset="100%" stop-color="#7A4414"/></linearGradient></defs><rect width="500" height="500" fill="url(#lavoeBg)"/><ellipse cx="265" cy="245" rx="115" ry="145" fill="#E8BE9B"/><path d="M150 215 C145 95, 385 95, 380 225 C365 165, 175 165, 150 215 Z" fill="#23160E"/><rect x="172" y="212" width="76" height="44" rx="8" fill="#E8998D" fill-opacity="0.45" stroke="#D4AF37" stroke-width="4"/><rect x="266" y="212" width="76" height="44" rx="8" fill="#E8998D" fill-opacity="0.45" stroke="#D4AF37" stroke-width="4"/><line x1="248" y1="224" x2="266" y2="224" stroke="#D4AF37" stroke-width="4"/><text x="22" y="42" fill="#EFE4BE" font-family="Georgia, serif" font-weight="700" font-size="26">HECTOR LAVOE</text><text x="22" y="70" fill="#EFE4BE" font-family="Georgia, serif" font-style="italic" font-size="22">De Ti Depende</text><text x="22" y="94" fill="#D8C99B" font-family="Georgia, serif" font-size="15">it's up to you</text></svg>`),
+        lucky7: svgDataUri(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500"><defs><radialGradient id="roenaBg" cx="50%" cy="45%" r="65%"><stop offset="0%" stop-color="#D95B43"/><stop offset="100%" stop-color="#A83825"/></radialGradient></defs><rect width="500" height="500" fill="url(#roenaBg)"/><text x="250" y="54" text-anchor="middle" fill="#F7F3EA" font-family="monospace" font-weight="700" font-size="28" letter-spacing="4">ROBERTO ROENA</text><text x="250" y="82" text-anchor="middle" fill="#F7F3EA" font-family="monospace" font-size="18" letter-spacing="3">Y SU APOLLO SOUND</text><ellipse cx="250" cy="245" rx="82" ry="96" fill="#8B5A3C"/><circle cx="250" cy="175" r="78" fill="#231814"/><rect x="195" y="330" width="110" height="170" rx="12" fill="#DCE6EC"/><line x1="165" y1="345" x2="335" y2="395" stroke="#8B5A3C" stroke-width="22" stroke-linecap="round"/><line x1="335" y1="345" x2="165" y2="395" stroke="#8B5A3C" stroke-width="22" stroke-linecap="round"/><text x="415" y="355" text-anchor="middle" fill="#F7F3EA" font-family="monospace" font-weight="700" font-size="24">LUCKY 7</text></svg>`),
+        liveAtTheCheetah: svgDataUri(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500"><rect width="500" height="500" fill="#5C4028"/><rect x="0" y="250" width="500" height="250" fill="#2C1D12" opacity="0.78"/><rect x="24" y="54" width="226" height="244" fill="#1B7A43" stroke="#111111" stroke-width="4"/><rect x="38" y="68" width="198" height="132" fill="#F2E43B"/><text x="137" y="114" text-anchor="middle" fill="#E3262E" font-family="sans-serif" font-weight="900" font-size="38">FANIA</text><text x="137" y="150" text-anchor="middle" fill="#E3262E" font-family="sans-serif" font-weight="900" font-size="28">ALL STARS</text><text x="137" y="226" text-anchor="middle" fill="#F2E43B" font-family="sans-serif" font-weight="900" font-size="26">LIVE</text><ellipse cx="137" cy="268" rx="66" ry="18" fill="#F2E43B"/><text x="137" y="274" text-anchor="middle" fill="#1B7A43" font-family="sans-serif" font-weight="900" font-size="18">CHEETAH</text><text x="375" y="455" text-anchor="middle" fill="#EFE4BE" font-family="monospace" font-size="13">LIVE AT THE CHEETAH</text></svg>`),
+        floralGreen: svgDataUri(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500"><defs><pattern id="grassPat" width="24" height="24" patternUnits="userSpaceOnUse"><rect width="24" height="24" fill="#2D6A27"/><circle cx="6" cy="8" r="3" fill="#F4A261"/><circle cx="18" cy="16" r="2.5" fill="#90BE6D"/></pattern></defs><rect width="500" height="500" fill="#FAF9F5"/><text x="250" y="138" text-anchor="middle" fill="url(#grassPat)" stroke="#141414" stroke-width="5" font-family="sans-serif" font-weight="900" font-size="96" letter-spacing="4">TITLE</text><text x="250" y="242" text-anchor="middle" fill="url(#grassPat)" stroke="#141414" stroke-width="5" font-family="sans-serif" font-weight="900" font-size="96" letter-spacing="4">FIGHT</text><text x="250" y="312" text-anchor="middle" fill="#1E1E1E" font-family="Georgia, serif" font-style="italic" font-size="34">Floral Green</text></svg>`),
+        debiTirarMasFotos: svgDataUri(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500"><defs><linearGradient id="tropBg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2E5A27"/><stop offset="68%" stop-color="#4C7A34"/><stop offset="68%" stop-color="#7A6A43"/><stop offset="100%" stop-color="#5A4E32"/></linearGradient></defs><rect width="500" height="500" fill="url(#tropBg)"/><path d="M250 35 L250 140" stroke="#4A6B22" stroke-width="6"/><ellipse cx="250" cy="145" rx="22" ry="44" fill="#76B82A" stroke="#3B5E14" stroke-width="2"/><path d="M120 265 L235 265 L222 395 L135 395 Z" fill="#F4F5F0" stroke="#C8C8C0" stroke-width="3"/><rect x="132" y="255" width="106" height="22" rx="8" fill="#F4F5F0"/><path d="M265 295 L385 295 L372 395 L278 395 Z" fill="#F4F5F0" stroke="#C8C8C0" stroke-width="3"/><rect x="275" y="286" width="102" height="20" rx="8" fill="#F4F5F0"/><text x="250" y="458" text-anchor="middle" fill="#EFE4BE" font-family="sans-serif" font-weight="800" font-size="20" letter-spacing="2">DEBÍ TIRAR MÁS FOTOS</text></svg>`),
+        abbaGold: svgDataUri(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500"><rect width="500" height="500" fill="#061824"/><rect x="18" y="18" width="464" height="464" fill="none" stroke="#8C7A4B" stroke-width="3"/><text x="250" y="176" text-anchor="middle" fill="#9A8754" font-family="sans-serif" font-weight="800" font-size="124" letter-spacing="8">ABBA</text><text x="250" y="294" text-anchor="middle" fill="#9A8754" font-family="Georgia, serif" font-size="76" letter-spacing="10">GOLD</text><polygon points="250,342 222,394 278,394" fill="none" stroke="#88A832" stroke-width="3"/><circle cx="222" cy="368" r="7" fill="#E63946" stroke="#88A832" stroke-width="2"/><circle cx="250" cy="356" r="7" fill="#E63946" stroke="#88A832" stroke-width="2"/><circle cx="278" cy="368" r="7" fill="#E63946" stroke="#88A832" stroke-width="2"/><text x="250" y="434" text-anchor="middle" fill="#E8E4D8" font-family="Georgia, serif" font-size="18" letter-spacing="6">GREATEST HITS</text></svg>`)
+      };
+
+      const BASE_CATALOG = [
+        {
+          id: 'ms-01',
+          artist: 'Fania Records',
+          album: 'The Latin Sound of New York',
+          genre: 'Música Latina · Salsa',
+          year: 1970,
+          price: 950.0,
+          status: 'Disponible',
+          condition: 'Nuevo',
+          featured: true,
+          cover: PROVIDED_COVERS.faniaLatinSound,
+          description: 'Selección del catálogo Fania (1964-1978) en formato LP.',
+          tracklist: ['The Latin Sound of New York', 'Cumbanchero', 'Descarga Fania']
+        },
+        {
+          id: 'ms-02',
+          artist: 'Miles Davis',
+          album: 'Kind of Blue',
+          genre: 'Jazz',
+          year: 1959,
+          price: 699.0,
+          status: 'Disponible',
+          condition: 'Nuevo',
+          featured: true,
+          cover: PROVIDED_COVERS.kindOfBlue,
+          description: 'Álbum de jazz modal en edición de vinilo.',
+          tracklist: ['So What', 'Freddie Freeloader', 'Blue in Green', 'All Blues', 'Flamenco Sketches']
+        },
+        {
+          id: 'ms-03',
+          artist: 'Radiohead',
+          album: 'In/Rainbows',
+          genre: 'Música Alternativa · Rock',
+          year: 2007,
+          price: 950.0,
+          status: 'Disponible',
+          condition: 'Nuevo',
+          featured: true,
+          cover: PROVIDED_COVERS.inRainbows,
+          description: 'Séptimo álbum de estudio de Radiohead en vinilo.',
+          tracklist: ['15 Step', 'Bodysnatchers', 'Nude', 'Weird Fishes/Arpeggi', 'Reckoner']
+        },
+        {
+          id: 'ms-04',
+          artist: 'Tame Impala',
+          album: 'Lonerism',
+          genre: 'Música Alternativa · Psicodelia',
+          year: 2012,
+          price: 900.0,
+          status: 'Disponible',
+          condition: 'Nuevo',
+          featured: false,
+          cover: PROVIDED_COVERS.lonerism,
+          description: 'Segundo álbum de estudio de Tame Impala en formato de vinilo.',
+          tracklist: ['Be Above It', 'Endors Toi', 'Feels Like We Only Go Backwards', 'Elephant', 'Apocalypse Dreams']
+        },
+        {
+          id: 'ms-05',
+          artist: 'Cage the Elephant',
+          album: 'Melophobia',
+          genre: 'Rock · Música Alternativa',
+          year: 2013,
+          price: 650.0,
+          status: 'Disponible',
+          condition: 'Nuevo',
+          featured: false,
+          cover: PROVIDED_COVERS.melophobia,
+          description: 'Tercer álbum de estudio de Cage the Elephant en vinilo.',
+          tracklist: ['Spiderhead', 'Come a Little Closer', 'Telescope', 'Cigarette Daydreams']
+        },
+        {
+          id: 'ms-06',
+          artist: 'OLIVIA RODRIGO',
+          album: 'SOUR',
+          genre: 'Pop · Música Alternativa',
+          year: 2021,
+          price: 800.0,
+          status: 'Disponible',
+          condition: 'Nuevo',
+          featured: false,
+          cover: PROVIDED_COVERS.sour,
+          description: 'Álbum debut de Olivia Rodrigo en formato de vinilo.',
+          tracklist: ['brutal', 'traitor', 'drivers license', 'good 4 u', 'deja vu']
+        },
+        {
+          id: 'ms-07',
+          artist: 'American Football',
+          album: 'LP1',
+          genre: 'Música Alternativa · Rock',
+          year: 1999,
+          price: null,
+          status: 'Disponible',
+          condition: 'Nuevo',
+          featured: false,
+          cover: PROVIDED_COVERS.americanFootball,
+          description: 'Álbum debut homónimo de American Football en formato de vinilo.',
+          tracklist: ['Never Meant', 'The Summer Ends', 'Honestly?', 'For Sure']
+        },
+        {
+          id: 'ms-08',
+          artist: 'Mac DeMarco',
+          album: 'This Old Dog',
+          genre: 'Música Alternativa · Indie',
+          year: 2017,
+          price: 699.0,
+          status: 'Disponible',
+          condition: 'Nuevo',
+          featured: false,
+          cover: PROVIDED_COVERS.thisOldDog,
+          description: 'Tercer álbum de estudio de Mac DeMarco en vinilo.',
+          tracklist: ['My Old Man', 'This Old Dog', 'For the First Time', 'One Another']
+        },
+        {
+          id: 'ms-09',
+          artist: 'Foster the People',
+          album: 'Torches',
+          genre: 'Pop · Música Alternativa',
+          year: 2011,
+          price: 650.0,
+          status: 'Disponible',
+          condition: 'Nuevo',
+          featured: false,
+          cover: PROVIDED_COVERS.torches,
+          description: 'Álbum debut de Foster the People en formato de vinilo.',
+          tracklist: ['Helena Beat', 'Pumped Up Kicks', 'Call It What You Want', 'Houdini']
+        },
+        {
+          id: 'ms-10',
+          artist: 'Tame Impala',
+          album: 'Currents',
+          genre: 'Electrónica · Psicodelia',
+          year: 2015,
+          price: 950.0,
+          status: 'Disponible',
+          condition: 'Nuevo',
+          featured: true,
+          cover: PROVIDED_COVERS.currents,
+          description: 'Tercer álbum de estudio de Tame Impala en formato de vinilo.',
+          tracklist: ['Let It Happen', 'The Less I Know the Better', 'Eventually', 'New Person, Same Old Mistakes']
+        },
+        {
+          id: 'ms-11',
+          artist: 'Héctor Lavoe',
+          album: 'De Ti Depende',
+          genre: 'Música Latina · Salsa',
+          year: 1976,
+          price: 800.0,
+          status: 'Disponible',
+          condition: 'Nuevo',
+          featured: true,
+          cover: PROVIDED_COVERS.deTiDepende,
+          description: 'Producción de Héctor Lavoe en formato de vinilo.',
+          tracklist: ['De Ti Depende', 'Periódico de Ayer', 'Hacha y Machete', 'Todo Tiene Su Final']
+        },
+        {
+          id: 'ms-12',
+          artist: 'Roberto Roena y Su Apollo Sound',
+          album: 'Lucky 7',
+          genre: 'Música Latina · Salsa',
+          year: 1973,
+          price: 800.0,
+          status: 'Disponible',
+          condition: 'Nuevo',
+          featured: false,
+          cover: PROVIDED_COVERS.lucky7,
+          description: 'Álbum de Roberto Roena y Su Apollo Sound en vinilo.',
+          tracklist: ['Lucky 7', 'Cui Cui', 'El Campesino', 'Mi Desengaño']
+        },
+        {
+          id: 'ms-13',
+          artist: 'Fania Records',
+          album: 'Live At The Cheetah',
+          genre: 'Música Latina · Salsa',
+          year: 1971,
+          price: 950.0,
+          status: 'Disponible',
+          condition: 'Nuevo',
+          featured: false,
+          cover: PROVIDED_COVERS.liveAtTheCheetah,
+          description: 'Grabación en vivo en The Cheetah en formato de vinilo.',
+          tracklist: ['Live at the Cheetah Pt. 1', 'Live at the Cheetah Pt. 2', 'Quítate Tú']
+        },
+        {
+          id: 'ms-14',
+          artist: 'Title Fight',
+          album: 'Floral Green',
+          genre: 'Rock · Música Alternativa',
+          year: 2012,
+          price: 850.0,
+          status: 'Disponible',
+          condition: 'Nuevo',
+          featured: false,
+          cover: PROVIDED_COVERS.floralGreen,
+          description: 'Tercer álbum de estudio de Title Fight en vinilo.',
+          tracklist: ['Numb, But I Still Feel It', 'Leaf', 'Like a Ritual', 'Symmetry']
+        },
+        {
+          id: 'ms-15',
+          artist: 'Bad Bunny',
+          album: 'DEBÍ TIRAR MÁS FOTOS',
+          genre: 'Música Latina · Urbano',
+          year: 2025,
+          price: 950.0,
+          status: 'Disponible',
+          condition: 'Nuevo',
+          featured: true,
+          cover: PROVIDED_COVERS.debiTirarMasFotos,
+          description: 'Edición en vinilo de DEBÍ TIRAR MÁS FOTOS.',
+          tracklist: ['NUEVAYoL', 'BAILE INoLVIDABLE', 'DTMF', 'LA MuDANZA']
+        },
+        {
+          id: 'ms-16',
+          artist: 'ABBA',
+          album: 'Gold - Greatest Hits [2 LP]',
+          genre: 'Pop · Disco',
+          year: 1992,
+          price: 999.0,
+          status: 'Disponible',
+          condition: 'Nuevo',
+          featured: false,
+          cover: PROVIDED_COVERS.abbaGold,
+          description: 'Doble LP recopilatorio Gold - Greatest Hits [2 LP] de ABBA.',
+          tracklist: ['Dancing Queen', 'Take a Chance on Me', 'Mamma Mia', 'Gimme! Gimme! Gimme!', 'The Winner Takes It All']
+        }
+      ];
+
+      function shortenText(str, max) {
+        const clean = String(str || '').trim();
+        if (clean.length <= max) return clean;
+        return clean.slice(0, max - 1).trim() + '…';
+      }
+
+      function buildUniqueSvgCover(record) {
+        const albumText = escapeXml(shortenText(record.album || 'Nuevo LP', 25));
+        const artistText = escapeXml(shortenText(record.artist || 'MANOS SUCIAS', 28));
+        const yearText = record.year ? escapeXml(String(record.year)) : 'LP';
+        const condText = escapeXml((record.condition || 'Nuevo').toUpperCase());
+        const seedNum = String(record.id || record.album || '1')
+          .split('')
+          .reduce((acc, ch) => acc + ch.charCodeAt(0), 0);
+        const geomType = seedNum % 4;
+
+        let graphicLayer = '';
+        if (geomType === 0) {
+          graphicLayer = `<circle cx="250" cy="172" r="98" fill="#311E12" stroke="#EFE4BE" stroke-opacity="0.45" stroke-width="3"/><circle cx="250" cy="172" r="46" fill="#23150C" stroke="#E06D2B" stroke-width="3"/><circle cx="250" cy="172" r="10" fill="#EFE4BE"/>`;
+        } else if (geomType === 1) {
+          graphicLayer = `<rect x="64" y="54" width="372" height="224" rx="14" fill="#311E12" stroke="#EFE4BE" stroke-opacity="0.35" stroke-width="2.5"/><line x1="92" y1="112" x2="408" y2="112" stroke="#E06D2B" stroke-width="4" stroke-linecap="round"/><circle cx="382" cy="214" r="34" fill="#E06D2B"/><circle cx="382" cy="214" r="10" fill="#23150C"/>`;
+        } else if (geomType === 2) {
+          graphicLayer = `<polygon points="250,52 396,268 104,268" fill="#311E12" stroke="#E06D2B" stroke-width="3.5"/><circle cx="250" cy="196" r="52" fill="#23150C" stroke="#EFE4BE" stroke-opacity="0.5" stroke-width="2.5"/><circle cx="250" cy="196" r="14" fill="#EFE4BE"/>`;
+        } else {
+          graphicLayer = `<rect x="76" y="58" width="160" height="214" rx="14" fill="#311E12" stroke="#EFE4BE" stroke-opacity="0.4" stroke-width="2.5"/><rect x="264" y="58" width="160" height="214" rx="14" fill="#160D07" stroke="#E06D2B" stroke-width="3"/><circle cx="344" cy="165" r="52" fill="#311E12" stroke="#EFE4BE" stroke-opacity="0.45" stroke-width="2.5"/><circle cx="344" cy="165" r="12" fill="#E06D2B"/>`;
+        }
+
+        const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500"><rect width="500" height="500" fill="#23150C"/><rect x="22" y="22" width="456" height="456" rx="20" fill="none" stroke="#EFE4BE" stroke-opacity="0.28" stroke-width="2.5"/>${graphicLayer}<rect x="44" y="304" width="412" height="148" rx="14" fill="#160D07" stroke="#EFE4BE" stroke-opacity="0.3" stroke-width="2"/><text x="66" y="352" fill="#EFE4BE" font-family="Georgia, serif" font-weight="700" font-size="29">${albumText}</text><text x="66" y="388" fill="#D8C99B" font-family="monospace" font-size="20">${artistText}</text><text x="66" y="428" fill="#E06D2B" font-family="monospace" font-weight="700" font-size="15">MANOS SUCIAS · ${condText} · ${yearText}</text></svg>`;
+        return svgDataUri(svg);
+      }
+
+      function getDefaultCoverForAlbum(albumTitle) {
+        const key = String(albumTitle || '').trim().toLowerCase();
+        if (key.includes('abba') || key.includes('gold')) return PROVIDED_COVERS.abbaGold;
+        if (key.includes('debi') || key.includes('debí') || key.includes('fotos')) return PROVIDED_COVERS.debiTirarMasFotos;
+        if (key.includes('floral green')) return PROVIDED_COVERS.floralGreen;
+        if (key.includes('cheetah')) return PROVIDED_COVERS.liveAtTheCheetah;
+        if (key.includes('lucky 7')) return PROVIDED_COVERS.lucky7;
+        if (key.includes('de ti depende')) return PROVIDED_COVERS.deTiDepende;
+        if (key.includes('currents')) return PROVIDED_COVERS.currents;
+        if (key.includes('torches')) return PROVIDED_COVERS.torches;
+        if (key.includes('this old dog')) return PROVIDED_COVERS.thisOldDog;
+        if (key.includes('lp1') || key.includes('american football')) return PROVIDED_COVERS.americanFootball;
+        if (key.includes('sour') || key.includes('olivia rodrigo')) return PROVIDED_COVERS.sour;
+        if (key.includes('melophobia') || key.includes('cage the elephant')) return PROVIDED_COVERS.melophobia;
+        if (key.includes('latin sound') || key.includes('fania records')) return PROVIDED_COVERS.faniaLatinSound;
+        if (key.includes('kind of blue') || key.includes('miles davis')) return PROVIDED_COVERS.kindOfBlue;
+        if (key.includes('in rainbows') || key.includes('in/rainbows') || key.includes('radiohead')) return PROVIDED_COVERS.inRainbows;
+        if (key.includes('lonerism')) return PROVIDED_COVERS.lonerism;
+        return '';
+      }
+
+      function getRecordCover(record) {
+        if (record && typeof record.cover === 'string' && record.cover.trim() !== '') {
+          return record.cover.trim();
+        }
+        const matched = getDefaultCoverForAlbum(record && record.album);
+        if (matched) return matched;
+        return buildUniqueSvgCover(record || {});
+      }
+
+      const state = {
+        records: [],
+        favorites: [],
+        search: '',
+        sort: 'default',
+        favoritesOnly: false,
+        uploadedCoverUrl: '',
+        isAdminMode: false
+      };
+
+      function detectAdminAccess() {
+        try {
+          const params = new URLSearchParams(window.location.search || '');
+          const hash = String(window.location.hash || '').toLowerCase();
+          return params.get('admin') === '1' || params.get('admin') === 'true' || hash === '#admin';
+        } catch (err) {
+          return false;
+        }
+      }
+
+      function applyAdminVisibility() {
+        state.isAdminMode = detectAdminAccess();
+        const adminBtn = document.getElementById('adminNavBtn');
+        if (adminBtn) {
+          adminBtn.classList.toggle('hidden', !state.isAdminMode);
+        }
+        if (!state.isAdminMode) {
+          window.closeAdminPanel();
+        }
+      }
+
+      function cloneData(arr) {
+        return JSON.parse(JSON.stringify(arr));
+      }
+
+      function loadStorage() {
+        try {
+          const raw = window.localStorage.getItem(STORAGE_KEY);
+          if (!raw) {
+            return { records: cloneData(BASE_CATALOG), favorites: [] };
+          }
+          const parsed = JSON.parse(raw);
+          const records = Array.isArray(parsed.records) && parsed.records.length > 0
+            ? parsed.records.map((rec) => {
+                const defaultCover = getDefaultCoverForAlbum(rec.album);
+                return {
+                  ...rec,
+                  cover: rec.cover && rec.cover.trim() !== '' ? rec.cover : defaultCover
+                };
+              })
+            : cloneData(BASE_CATALOG);
+          const favorites = Array.isArray(parsed.favorites)
+            ? parsed.favorites.filter((item) => typeof item === 'string')
+            : [];
+          return { records, favorites };
+        } catch (err) {
+          return { records: cloneData(BASE_CATALOG), favorites: [] };
+        }
+      }
+
+      function saveStorage() {
+        try {
+          window.localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify({ records: state.records, favorites: state.favorites })
+          );
+        } catch (err) {
+          console.warn('Error guardando en localStorage:', err);
+        }
+      }
+
+      function formatPriceDisplay(price) {
+        if (price === null || price === undefined || price === '' || Number.isNaN(Number(price))) {
+          return { text: 'Precio por confirmar', isConsult: true };
+        }
+        const formatted = new Intl.NumberFormat('es-MX', {
+          style: 'currency',
+          currency: 'MXN',
+          minimumFractionDigits: 2
+        }).format(Number(price));
+        return { text: `${formatted} MXN`, isConsult: false };
+      }
+
+      function getSortedFilteredRecords() {
+        const q = state.search.trim().toLowerCase();
+        const list = state.records.filter((rec) => {
+          if (state.favoritesOnly && !state.favorites.includes(rec.id)) {
+            return false;
+          }
+          if (q) {
+            const tracksText = Array.isArray(rec.tracklist) ? rec.tracklist.join(' ') : '';
+            const haystack = `${rec.album || ''} ${rec.artist || ''} ${rec.genre || ''} ${tracksText}`.toLowerCase();
+            if (!haystack.includes(q)) return false;
+          }
+          return true;
+        });
+
+        list.sort((a, b) => {
+          switch (state.sort) {
+            case 'price-asc': {
+              const pa = a.price !== null && a.price !== undefined && a.price !== '' ? Number(a.price) : Number.POSITIVE_INFINITY;
+              const pb = b.price !== null && b.price !== undefined && b.price !== '' ? Number(b.price) : Number.POSITIVE_INFINITY;
+              return pa - pb;
+            }
+            case 'price-desc': {
+              const pa = a.price !== null && a.price !== undefined && a.price !== '' ? Number(a.price) : -1;
+              const pb = b.price !== null && b.price !== undefined && b.price !== '' ? Number(b.price) : -1;
+              return pb - pa;
+            }
+            case 'newest': {
+              const ya = a.year ? Number(a.year) : -1;
+              const yb = b.year ? Number(b.year) : -1;
+              return yb - ya;
+            }
+            case 'popularity': {
+              const fa = a.featured ? 1 : 0;
+              const fb = b.featured ? 1 : 0;
+              if (fb !== fa) return fb - fa;
+              const ya = a.year ? Number(a.year) : -1;
+              const yb = b.year ? Number(b.year) : -1;
+              return yb - ya;
+            }
+            case 'default':
+            default:
+              return 0;
+          }
+        });
+
+        return list;
+      }
+
+      function renderCatalogView() {
+        const grid = document.getElementById('recordsGrid');
+        const emptyBox = document.getElementById('emptyStateBox');
+        const favBadge = document.getElementById('headerFavBadge');
+        const availBadge = document.getElementById('availableCountBadge');
+        const navFav = document.getElementById('navFavBtn');
+        const quickFav = document.getElementById('quickFavBtn');
+        const navCat = document.getElementById('navCatalogBtn');
+
+        if (favBadge) favBadge.textContent = String(state.favorites.length);
+        const availableTotal = state.records.filter((r) => r.status === 'Disponible').length;
+        if (availBadge) availBadge.textContent = `${availableTotal} disponibles`;
+
+        if (state.favoritesOnly) {
+          navFav?.classList.add('btn-active');
+          quickFav?.classList.add('btn-active');
+          navCat?.classList.remove('btn-active');
+        } else {
+          navFav?.classList.remove('btn-active');
+          quickFav?.classList.remove('btn-active');
+          navCat?.classList.add('btn-active');
+        }
+
+        const filtered = getSortedFilteredRecords();
+        if (!grid || !emptyBox) return;
+
+        if (filtered.length === 0) {
+          grid.innerHTML = '';
+          emptyBox.classList.remove('hidden');
+          return;
+        }
+
+        emptyBox.classList.add('hidden');
+        grid.innerHTML = filtered.map((rec) => {
+          const isFav = state.favorites.includes(rec.id);
+          const priceInfo = formatPriceDisplay(rec.price);
+          const statusClass = ['Disponible', 'Preventa', 'Agotado'].includes(rec.status)
+            ? `status-${rec.status}`
+            : 'status-Disponible';
+
+          return `
+            <article class="record-card">
+              <div class="cover-wrap" onclick="window.openRecordModal('${rec.id}')">
+                ${rec.featured ? `<span class="featured-chip">Destacado</span>` : ''}
+                <button
+                  type="button"
+                  class="fav-icon-btn ${isFav ? 'is-fav' : ''}"
+                  aria-label="Marcar ${escapeXml(rec.album)} como favorito"
+                  onclick="event.stopPropagation(); window.toggleFav('${rec.id}')"
+                >
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="${isFav ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                  </svg>
+                </button>
+                <img
+                  src="${getRecordCover(rec)}"
+                  alt="Portada de ${escapeXml(rec.album)} — ${escapeXml(rec.artist)}"
+                  loading="lazy"
+                />
+              </div>
+
+              <div class="card-content">
+                <div>
+                  <div class="card-badges">
+                    <span class="status-pill ${statusClass}">${escapeXml(rec.status || 'Disponible')}</span>
+                    <span class="card-year">${rec.year ? escapeXml(String(rec.year)) : 'S/A'}</span>
+                  </div>
+                  <h2 class="card-title" onclick="window.openRecordModal('${rec.id}')">${escapeXml(rec.album)}</h2>
+                  <p class="card-artist">${escapeXml(rec.artist)}</p>
+                  ${rec.genre ? `<p class="card-genre">${escapeXml(rec.genre)}</p>` : ''}
+                </div>
+
+                <div class="card-bottom">
+                  <span class="price-label ${priceInfo.isConsult ? 'price-consult' : ''}">${escapeXml(priceInfo.text)}</span>
+                  <button type="button" class="btn btn-xs" style="width:100%;" onclick="window.openRecordModal('${rec.id}')">
+                    Ver ficha
+                  </button>
+                </div>
+              </div>
+            </article>
+          `;
+        }).join('');
+      }
+
+      function renderAdminItems() {
+        const listEl = document.getElementById('adminItemsList');
+        if (!listEl) return;
+
+        listEl.innerHTML = state.records.map((rec) => {
+          const priceInfo = formatPriceDisplay(rec.price);
+          return `
+            <div class="admin-row">
+              <div class="admin-row-info">
+                <div class="admin-mini-cover">
+                  <img src="${getRecordCover(rec)}" alt="${escapeXml(rec.album)}" />
+                </div>
+                <div style="min-width:0;">
+                  <div style="font-weight:700; font-size:0.92rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+                    ${escapeXml(rec.album)}
+                  </div>
+                  <div class="font-mono" style="font-size:0.74rem; color:var(--cream-muted);">
+                    ${escapeXml(rec.artist)} · ${escapeXml(priceInfo.text)}
+                  </div>
+                  <div style="display:flex; flex-wrap:wrap; gap:0.35rem; margin-top:0.3rem;">
+                    <span class="status-pill status-${escapeXml(rec.status || 'Disponible')}">${escapeXml(rec.status || 'Disponible')}</span>
+                    <span class="info-chip">${escapeXml(rec.condition || 'Nuevo')}</span>
+                    ${rec.featured ? `<span class="info-chip" style="border-color:var(--accent); color:var(--accent);">Destacado</span>` : ''}
+                  </div>
+                </div>
+              </div>
+
+              <div class="admin-row-btns">
+                <button type="button" class="btn btn-xs" onclick="window.editCatalogRecord('${rec.id}')">Editar</button>
+                <button type="button" class="btn btn-xs" onclick="window.deleteCatalogRecord('${rec.id}')">Eliminar</button>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      window.resetToAllCatalog = function () {
+        state.favoritesOnly = false;
+        renderCatalogView();
+        document.getElementById('catalogMain')?.scrollIntoView({ behavior: 'smooth' });
+      };
+
+      window.handleSearchInput = function (value) {
+        state.search = String(value || '');
+        renderCatalogView();
+      };
+
+      window.handleSortChange = function (value) {
+        state.sort = value || 'default';
+        renderCatalogView();
+      };
+
+      window.toggleFavoritesOnly = function () {
+        state.favoritesOnly = !state.favoritesOnly;
+        renderCatalogView();
+      };
+
+      window.clearAllFilters = function () {
+        state.search = '';
+        state.sort = 'default';
+        state.favoritesOnly = false;
+        const searchBox = document.getElementById('searchBox');
+        const sortSelect = document.getElementById('sortSelect');
+        if (searchBox) searchBox.value = '';
+        if (sortSelect) sortSelect.value = 'default';
+        renderCatalogView();
+      };
+
+      window.toggleFav = function (id) {
+        const idx = state.favorites.indexOf(id);
+        if (idx >= 0) {
+          state.favorites.splice(idx, 1);
+          pushToast('Quitado de favoritos');
+        } else {
+          state.favorites.push(id);
+          pushToast('Agregado a favoritos');
+        }
+        saveStorage();
+        renderCatalogView();
+      };
+
+      window.openRecordModal = function (id) {
+        const rec = state.records.find((r) => r.id === id);
+        if (!rec) return;
+
+        const priceInfo = formatPriceDisplay(rec.price);
+        const isFav = state.favorites.includes(rec.id);
+        const tracks = Array.isArray(rec.tracklist) ? rec.tracklist.filter(Boolean) : [];
+        const isSoldOut = rec.status === 'Agotado';
+
+        const tracksMarkup = tracks.length > 0
+          ? `<div class="tracklist-card"><ol>${tracks.map((t) => `<li>${escapeXml(t)}</li>`).join('')}</ol></div>`
+          : `<div class="tracklist-card"><span class="font-mono" style="font-size:0.78rem; color:var(--cream-muted);">Sin canciones registradas.</span></div>`;
+
+        const container = document.getElementById('detailModalContent');
+        if (container) {
+          container.innerHTML = `
+            <div class="detail-layout">
+              <div>
+                <div class="detail-cover">
+                  <img src="${getRecordCover(rec)}" alt="Portada de ${escapeXml(rec.album)}" />
+                </div>
+              </div>
+
+              <div style="display:flex; flex-direction:column; gap:0.85rem;">
+                <div class="meta-chips">
+                  <span class="status-pill status-${escapeXml(rec.status || 'Disponible')}">${escapeXml(rec.status || 'Disponible')}</span>
+                  <span class="info-chip">Vinilo: ${escapeXml(rec.condition || 'Nuevo')}</span>
+                  ${rec.genre ? `<span class="info-chip">${escapeXml(rec.genre)}</span>` : ''}
+                  ${rec.year ? `<span class="info-chip">Año: ${escapeXml(String(rec.year))}</span>` : ''}
+                  ${rec.featured ? `<span class="info-chip" style="border-color:var(--accent); color:var(--accent);">Destacado</span>` : ''}
+                </div>
+
+                <div>
+                  <h2 id="detailTitleHeading" style="margin:0; font-size:clamp(1.55rem, 3vw, 2.1rem);">${escapeXml(rec.album)}</h2>
+                  <p style="margin:0.22rem 0 0; font-size:1.02rem; color:var(--cream-muted); font-weight:600;">${escapeXml(rec.artist)}</p>
+                </div>
+
+                <div class="price-strip">
+                  <span class="field-label" style="margin:0;">Precio</span>
+                  <span class="price-label ${priceInfo.isConsult ? 'price-consult' : ''}" style="font-size:1.1rem;">${escapeXml(priceInfo.text)}</span>
+                </div>
+
+                ${isSoldOut ? `<div class="soldout-alert">Este disco se encuentra AGOTADO por el momento.</div>` : ''}
+
+                <div>
+                  <span class="field-label">Descripción del álbum</span>
+                  <p style="margin:0; font-size:0.9rem; color:var(--cream-muted);">${escapeXml(rec.description || 'Edición en vinilo en MANOS SUCIAS.')}</p>
+                </div>
+
+                <div>
+                  <span class="field-label">Lista de canciones (${tracks.length} ${tracks.length === 1 ? 'canción' : 'canciones'})</span>
+                  ${tracksMarkup}
+                </div>
+
+                <div style="display:flex; flex-wrap:wrap; gap:0.6rem; padding-top:0.35rem;">
+                  <button type="button" class="btn" onclick="window.toggleFav('${rec.id}'); window.openRecordModal('${rec.id}');">
+                    ${isFav ? '♥ En favoritos' : '♡ Favorito'}
+                  </button>
+                  ${state.isAdminMode ? `<button type="button" class="btn btn-accent" onclick="window.closeDetailModal(); window.editCatalogRecord('${rec.id}');">Editar disco</button>` : ''}
+                </div>
+              </div>
+            </div>
+          `;
+        }
+
+        document.getElementById('detailModal')?.classList.add('open');
+      };
+
+      window.closeDetailModal = function () {
+        document.getElementById('detailModal')?.classList.remove('open');
+      };
+
+      window.openAdminPanel = function () {
+        if (!state.isAdminMode) {
+          pushToast('Acceso privado deshabilitado');
+          return;
+        }
+        renderAdminItems();
+        const heading = document.getElementById('formHeading');
+        const idField = document.getElementById('editRecordId');
+        if (heading && (!idField || !idField.value)) {
+          heading.textContent = 'Agregar nuevo disco';
+        }
+        window.refreshFormPreview();
+        document.getElementById('adminModal')?.classList.add('open');
+      };
+
+      window.closeAdminPanel = function () {
+        document.getElementById('adminModal')?.classList.remove('open');
+      };
+
+      window.resetFormFields = function () {
+        document.getElementById('catalogForm')?.reset();
+        const idField = document.getElementById('editRecordId');
+        const heading = document.getElementById('formHeading');
+        if (idField) idField.value = '';
+        if (heading) heading.textContent = 'Agregar nuevo disco';
+        state.uploadedCoverUrl = '';
+        window.refreshFormPreview();
+      };
+
+      window.refreshFormPreview = function refreshFormPreview() {
+        const preview = document.getElementById('formCoverPreview');
+        if (!preview) return;
+
+        if (state.uploadedCoverUrl) {
+          preview.src = state.uploadedCoverUrl;
+          return;
+        }
+
+        const editId = (document.getElementById('editRecordId')?.value || '').trim();
+        const album = document.getElementById('albumField')?.value || 'Nuevo LP';
+        const artist = document.getElementById('artistField')?.value || 'MANOS SUCIAS';
+        const year = document.getElementById('yearField')?.value || '';
+        const condition = document.getElementById('conditionField')?.value || 'Nuevo';
+
+        if (editId) {
+          const existing = state.records.find((r) => r.id === editId);
+          if (existing && existing.cover) {
+            preview.src = existing.cover;
+            return;
+          }
+        }
+
+        const matchedCover = getDefaultCoverForAlbum(album);
+        if (matchedCover) {
+          preview.src = matchedCover;
+          return;
+        }
+
+        preview.src = buildUniqueSvgCover({
+          id: editId || 'draft',
+          album,
+          artist,
+          year: year ? Number(year) : null,
+          condition
+        });
+      };
+
+      window.onCoverUrlInput = function (value) {
+        state.uploadedCoverUrl = String(value || '').trim();
+        window.refreshFormPreview();
+      };
+
+      window.clearCustomCover = function () {
+        state.uploadedCoverUrl = '';
+        const input = document.getElementById('coverUploadField');
+        const urlField = document.getElementById('coverUrlField');
+        if (input) input.value = '';
+        if (urlField) urlField.value = '';
+        const editId = (document.getElementById('editRecordId')?.value || '').trim();
+        if (editId) {
+          const existing = state.records.find((r) => r.id === editId);
+          if (existing) {
+            existing.cover = getDefaultCoverForAlbum(existing.album) || buildUniqueSvgCover(existing);
+          }
+        }
+        window.refreshFormPreview();
+      };
+
+      window.onCoverFileSelected = function (event) {
+        const file = event.target?.files?.[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function (ev) {
+          state.uploadedCoverUrl = String(ev.target?.result || '');
+          const urlField = document.getElementById('coverUrlField');
+          if (urlField && !state.uploadedCoverUrl.startsWith('data:')) {
+            urlField.value = state.uploadedCoverUrl;
+          }
+          window.refreshFormPreview();
+        };
+        reader.readAsDataURL(file);
+      };
+
+      window.saveRecordFromForm = function (event) {
+        event.preventDefault();
+
+        const editId = (document.getElementById('editRecordId')?.value || '').trim();
+        const album = (document.getElementById('albumField')?.value || '').trim();
+        const artist = (document.getElementById('artistField')?.value || '').trim();
+        if (!album || !artist) return;
+
+        const genre = (document.getElementById('genreField')?.value || '').trim();
+        const yearRaw = (document.getElementById('yearField')?.value || '').trim();
+        const priceRaw = (document.getElementById('priceField')?.value || '').trim();
+        const status = document.getElementById('statusField')?.value || 'Disponible';
+        const condition = document.getElementById('conditionField')?.value || 'Nuevo';
+        const featured = Boolean(document.getElementById('featuredField')?.checked);
+        const description = (document.getElementById('descriptionField')?.value || '').trim();
+        const tracksRaw = document.getElementById('tracklistField')?.value || '';
+
+        const tracklist = tracksRaw
+          .split(/\r?\n/)
+          .map((line) => line.trim())
+          .filter(Boolean);
+
+        const year = yearRaw ? Number(yearRaw) : null;
+        const price = priceRaw !== '' && !Number.isNaN(Number(priceRaw)) ? Number(priceRaw) : null;
+        const defaultCover = getDefaultCoverForAlbum(album);
+
+        if (editId) {
+          const idx = state.records.findIndex((r) => r.id === editId);
+          if (idx >= 0) {
+            const previousCover = state.records[idx].cover;
+            const resolvedCover = state.uploadedCoverUrl || previousCover || defaultCover || buildUniqueSvgCover({
+              id: editId,
+              album,
+              artist,
+              year,
+              condition
+            });
+            state.records[idx] = {
+              ...state.records[idx],
+              album,
+              artist,
+              genre: genre || state.records[idx].genre || 'Vinilo',
+              year,
+              price,
+              status,
+              condition,
+              featured,
+              cover: resolvedCover,
+              description,
+              tracklist
+            };
+            pushToast(`"${album}" actualizado`);
+          }
+        } else {
+          const newId = 'ms-' + Date.now();
+          const created = {
+            id: newId,
+            album,
+            artist,
+            genre: genre || 'Vinilo',
+            year,
+            price,
+            status,
+            condition,
+            featured,
+            cover: state.uploadedCoverUrl || defaultCover || buildUniqueSvgCover({
+              id: newId,
+              album,
+              artist,
+              year,
+              condition
+            }),
+            description: description || 'Agregado al catálogo de MANOS SUCIAS.',
+            tracklist
+          };
+          state.records.unshift(created);
+          pushToast(`"${album}" agregado`);
+        }
+
+        saveStorage();
+        renderCatalogView();
+        renderAdminItems();
+        window.resetFormFields();
+      };
+
+      window.editCatalogRecord = function (id) {
+        const rec = state.records.find((r) => r.id === id);
+        if (!rec) return;
+
+        window.openAdminPanel();
+        const idField = document.getElementById('editRecordId');
+        const heading = document.getElementById('formHeading');
+        if (idField) idField.value = rec.id;
+        if (heading) heading.textContent = `Editando: ${rec.album}`;
+
+        document.getElementById('albumField').value = rec.album || '';
+        document.getElementById('artistField').value = rec.artist || '';
+        document.getElementById('genreField').value = rec.genre || '';
+        document.getElementById('yearField').value = rec.year || '';
+        document.getElementById('priceField').value = rec.price !== null && rec.price !== undefined ? rec.price : '';
+        document.getElementById('statusField').value = rec.status || 'Disponible';
+        document.getElementById('conditionField').value = rec.condition || 'Nuevo';
+        document.getElementById('featuredField').checked = Boolean(rec.featured);
+        document.getElementById('descriptionField').value = rec.description || '';
+        document.getElementById('tracklistField').value = Array.isArray(rec.tracklist) ? rec.tracklist.join('\n') : '';
+
+        const urlField = document.getElementById('coverUrlField');
+        if (urlField) {
+          urlField.value = rec.cover && !rec.cover.startsWith('data:') ? rec.cover : '';
+        }
+
+        state.uploadedCoverUrl = rec.cover && !rec.cover.startsWith('data:') ? rec.cover : '';
+        window.refreshFormPreview();
+      };
+
+      window.deleteCatalogRecord = function (id) {
+        const target = state.records.find((r) => r.id === id);
+        state.records = state.records.filter((r) => r.id !== id);
+        state.favorites = state.favorites.filter((fid) => fid !== id);
+        saveStorage();
+        renderCatalogView();
+        renderAdminItems();
+        pushToast(`"${target ? target.album : 'Disco'}" eliminado`);
+      };
+
+      window.resetCatalogToBase = function () {
+        state.records = cloneData(BASE_CATALOG);
+        state.favorites = [];
+        saveStorage();
+        window.clearAllFilters();
+        renderAdminItems();
+        window.resetFormFields();
+        pushToast('Catálogo base restablecido');
+      };
+
+      window.closeOnBackdrop = function (event, modalId) {
+        if (event.target && event.target.id === modalId) {
+          document.getElementById(modalId)?.classList.remove('open');
+        }
+      };
+
+      function pushToast(text) {
+        const stack = document.getElementById('toastStack');
+        if (!stack) return;
+        const el = document.createElement('div');
+        el.className = 'toast-card';
+        el.textContent = text;
+        stack.appendChild(el);
+        window.setTimeout(() => {
+          el.remove();
+        }, 2500);
+      }
+
+      function init() {
+        try {
+          applyAdminVisibility();
+          window.addEventListener('hashchange', applyAdminVisibility);
+          mountOfficialBrandAssets();
+          const loaded = loadStorage();
+          state.records = loaded.records;
+          state.favorites = loaded.favorites;
+          renderCatalogView();
+          renderAdminItems();
+          window.refreshFormPreview();
+        } catch (err) {
+          console.error('Error al inicializar la aplicación:', err);
+          mountOfficialBrandAssets();
+          state.records = cloneData(BASE_CATALOG);
+          state.favorites = [];
+          renderCatalogView();
+        }
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
+  </script>
+</body>
+</html>
